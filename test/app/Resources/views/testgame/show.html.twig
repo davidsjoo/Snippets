@@ -1,0 +1,21 @@
+{% include 'base.html.twig' %}
+<table class="table">
+    <tr>
+        <th>Highlight</th>
+        <th>CMH</th>
+    </tr>
+    <tr>
+        <td>
+            {% for highlight in highlight %}
+                {{ highlight.testgame.gamedates|date("y-m-d") }} - {{ highlight.user.name }} - {{ highlight.testgame.gameName }} <br />
+            {% endfor %}
+        </td>
+        <td>
+            {% for cmh in cmh %}
+                {{ cmh.testgame.gamedates|date("y-m-d") }} - {{ cmh.user.name }} - {{ cmh.testgame.gameName }} <br />
+            {% endfor %}
+        </td>
+    </tr>
+</table>
+
+<a href="{{ path('_testgame') }}">Tillbaka</a>

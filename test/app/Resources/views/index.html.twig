@@ -1,0 +1,20 @@
+{% include 'base.html.twig' %}
+
+<a href="{{ path('_message') }}">Meddelanden</a>
+<a href="{{ path('_update_board', { 'id': 1 }) }}">Anslagstavlan</a>
+<a href="{{ path('_testgame') }}">Matcher</a>
+<a href="{{ path('_rapport') }}">Rapport</a>
+<h3>Senaste meddelande</h3>
+{% for message in latest_message %}
+{{ message.headline }}
+{% endfor %}
+
+<h3>Senaste fem meddelanden</h3>
+{% for message in latest_five_message %}
+{{ message.headline }} <br />
+{% endfor %}
+
+<h3>Anslagstavlan</h3>
+{% for message in board_message %}
+{{ message.boardMessage }}
+{% endfor %}

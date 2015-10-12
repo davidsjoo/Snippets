@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Highlight</title>
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+</head>
+
+<body>
+
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title">
+            {{highlight.testgame.gameName}} -
+            {{highlight.testgame.gamedates|date("j")}}/{{highlight.testgame.gamedates|date("m")}} -
+            Highlights
+        </h5>
+      </div>
+<table class="table" id="game_modal">
+    <tr>
+        <th id="game_th">
+{{ form_start(form) }}
+
+{{ form_widget(form) }}
+</th>
+
+<th id="game_th">
+
+{{ form_end(form) }}
+</th>
+</tr>
+</table>
+<div class="alert alert-success" role="alert">Bokningen sparades!</div>
+<div class="alert alert-warning" role="alert">Bokningen togs bort!</div>
+<div class="modal-footer">
+ {% if highlight.user != null %}   
+<button id="remove_highlight_button" class="btn btn-warning">Ta bort bokning</button>
+{% endif %}
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+    var $id = {{ highlight.id }}
+    $(document).ready(function() {
+
+        var $id = {{ highlight.id }}
+        $('.alert-success').hide();
+        $('.alert-warning').hide();
+        $('.alert-danger').hide();
+        console.log($id);
+    });
+
+    $(function() {
+        $("form").submit(function (e) {
+            e.preventDefault();
+            location.reload(false);
+            var $data = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "testgame/highlight/" + $id,
+                data: $data
+            }).done(function (result) {
+                if (result.success) {
+                    console.log(result);
+                    $('.alert-success').show();
+                }
+                else {
+                    console.log('Something went wrong..')
+                }
+            });
+        });
+    });
+    $(function() {
+        $('#remove_highlight_button').click(function() {
+            location.reload(false);
+            $.ajax({
+                type: 'POST',
+                url: 'testgame/highlight/remove/'+$id
+            }).done(function (data) {
+                if (data.success) {
+                    console.log(data);
+                    $('.alert-warning').show();
+                }
+            });
+        });
+    });
+    //empty modal on close
+    $(document).on("hidden.bs.modal", ".modal:not(.local-modal)", function (e) {
+    $(e.target).removeData("bs.modal").find(".modal-content").empty();
+    });    
+    
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+{% if category is defined %}
+<h3>{{ category.name }}</h3>
+    {% for product in product %}
+        {{ product.name }} <br />
+        {% endfor %}
+{% endif %}
+
+    <button id="show_products">Show!</button>
+    <ul id="products">
+
+    </ul>
+
+<a href=" {{ path('_index_product')  }}">Tillbaka</a>
+{% endblock %}

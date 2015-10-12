@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+    {% block stylesheets %}
+        {% stylesheets 'bundles/css/font-awesome-4.4.0/css/font-awesome.min.css' filter='cssrewrite' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+        {% endstylesheets %}
+        {{ parent() }}
+    {% endblock %}
+
+{% block body %}
+
+    <a href="{{ path('_games') }}">Kommande matcher</a> - <a href="{{ path('_played_games') }}">Spelade matcher</a>
+    - <a href="{{ path('_my_games') }}">Mina matcher</a>
+
+    <div class="modal" id="gameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+            </div>
+        </div>
+    </div>
+
+<div class="panel panel-default" id="games_comming_games">
+    <div class="panel-heading">Kommande matcher</div>
+<table class="table">
+    <tr>
+
+        <th>Match</th>
+        <th>Highlight</th>
+        <th>Betyg</th>
+        <th>CMH</th>
+        <th>Livered</th>
+        <th>FLS</th>
+
+    </tr>
+    {% set date = null %}
+    {% for game in games %}
+        {% if date != game.gamedates|date('Y-m-d') %}
+            {% set date = game.gamedates|date('Y-m-d') %}
+    <tr>
+        <th id="hej">{{ game.gamedates|date('Y-m-d') }} - {{ game.gamedates|date('l')}} </th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+            {% set date = game.gamedates|date('Y-m-d') %}
+        {% endif %}
+
+        <tr>
+            <td id="game">{{ game.gamedates|date("H:i") }} - {{ game.gameName }} </td>
+            
+            <td id="game">
+                {% if game.highlight.user.name is defined %}
+                    <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_highlight', {'id': game.id}) }}">{{ game.highlight.user.name }}</a>
+                {% else %}
+                    <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_highlight', {'id': game.id}) }}"><i class="fa fa-user-plus"></i></a>
+                {% endif %}
+            </td>
+
+            <td id="game">
+                {% if game.grade.grade != null %}
+                    <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_grade', {'id': game.id}) }}">{{ game.grade.grade }}</a>
+                {% else %}
+                    <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_grade', {'id': game.id}) }}"><i class="fa fa-minus"></i></a>
+                {% endif %}
+            </td>
+
+            <td id="game">
+                {% if game.cmh.user.name is defined %}
+                    <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_cmh', {'id': game.id}) }}">{{ game.cmh.user.name }}</a>
+                    {% else %}
+                        <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_cmh', {'id': game.id}) }}"><i class="fa fa-user-plus"></i></a>
+                {% endif %}
+            </td>
+            <td id="game">
+
+            </td>
+            <td id="game">
+
+            </td>
+
+        </tr>
+
+{% endfor %}
+
+</table>
+</div>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+
+{% endblock %}
+

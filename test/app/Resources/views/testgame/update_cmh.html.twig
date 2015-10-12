@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Cmh</title>
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+</head>
+
+<body>
+
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title">
+            {{cmh.testgame.gameName}} -
+            {{cmh.testgame.gamedates|date("j")}}/{{cmh.testgame.gamedates|date("m")}} -
+            CMH
+        </h5>
+      </div>
+<table class="table" id="game_modal">
+    <tr>
+        <th id="game_th">
+{{ form_start(form) }}
+
+{{ form_widget(form) }}
+</th>
+
+<th id="game_th">
+
+{{ form_end(form) }}
+</th>
+</tr>
+</table>
+<div class="alert alert-success" role="alert">Bokningen sparades!</div>
+<div class="alert alert-warning" role="alert">Bokningen togs bort!</div>
+<div class="modal-footer">
+ {% if cmh.user != null %}   
+<button id="remove_cmh_button" class="btn btn-warning">Ta bort bokning</button>
+{% endif %}
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+    var $id = {{ cmh.id }}
+    $(document).ready(function() {
+
+        var $id = {{ cmh.id }}
+        $('.alert-success').hide();
+        $('.alert-warning').hide();
+        console.log($id);
+    });
+
+    $(function() {
+        $("form").submit(function (e) {
+            e.preventDefault();
+            location.reload(false);
+            var $data = $(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "testgame/cmh/" + $id,
+                data: $data
+            }).done(function (result) {
+                if (result.success) {
+                    console.log(result);
+                    $('.alert-success').show();
+                }
+            });
+        });
+    });
+    $(function() {
+        $('#remove_cmh_button').click(function() {
+            location.reload(false);
+            $.ajax({
+                type: 'POST',
+                url: 'testgame/cmh/remove/'+$id
+            }).done(function (data) {
+                if (data.success) {
+                    console.log(data);
+                    $('.alert-warning').show();
+                }
+            });
+        });
+    });
+    //empty modal on close
+    $(document).on("hidden.bs.modal", ".modal:not(.local-modal)", function (e) {
+    $(e.target).removeData("bs.modal").find(".modal-content").empty();
+    });    
+    
+</script>
+
+</body>
+</html>

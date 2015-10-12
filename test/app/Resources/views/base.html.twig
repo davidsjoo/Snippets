@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets 
+            'bundles/css/css/bootstrap.min.css'
+            'bundles/game/css/style.css' 
+            filter='cssrewrite' 
+            %}
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+
+    <body>
+        {% block body %}{% endblock %}
+
+        {% block javascripts %}
+            {% javascripts 
+            'bundles/js/jquery-1.11.3.min.js' 
+            'bundles/js/js/bootstrap.min.js' 
+            'bundles/js/js/js.js'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+    {% endblock %}
+
+    </body>
+</html>
+
+
+
+
+
+

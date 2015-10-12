@@ -1,0 +1,102 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+logout:
+    path: /logout
+
+_index:
+    path:     /task
+    defaults: { _controller: AppBundle:Task:index }
+
+_createtask:
+    path:     /task/create_task
+    defaults: { _controller: AppBundle:Task:create }
+
+_showtasks:
+    path:     /task/show_tasks
+    defaults: { _controller: AppBundle:Task:show }
+
+_updatetask:
+    path:     /task/update_task/{id}
+    defaults: { _controller: AppBundle:Task:update }
+
+_new_product:
+    path:     /product/new_product
+    defaults: { _controller: AppBundle:Product:new }
+
+_index_product:
+    path:     /product
+    defaults: { _controller: AppBundle:Product:index }
+
+_filter_product:
+    path:     /product/filter
+    defaults: { _controller: AppBundle:Product:filter }
+
+_show_product:
+    path:     /product/show_product
+    defaults: { _controller: AppBundle:Product:show }
+
+_message:
+    path:     /message
+    defaults: { _controller: AppBundle:Message }
+
+_new_message:
+    path:     /message/new_message
+    defaults: { _controller: AppBundle:Message:new }
+
+_update_message:
+    path:     /message/update_message/{id}
+    defaults: { _controller: AppBundle:Message:update }
+
+_delete_message:
+    path:     /message/delete_message/{id}
+    defaults: { _controller: AppBundle:Message:delete }
+
+_show_message:
+    path:     /message/show_message/{id}
+    defaults: { _controller: AppBundle:Message:show }
+
+_update_board:
+    path:     /board/{id}
+    defaults: { _controller: AppBundle:Board:update }
+
+_update_highlight:
+    path:     /testgame/highlight/{id}
+    defaults: { _controller: AppBundle:Highlight:update }
+
+_update_grade:
+    path:     /testgame/grade/{id}
+    defaults: { _controller: AppBundle:Grade:update }
+
+_games:
+    path:     /testgame
+    defaults: { _controller: AppBundle:Testgame:show }
+
+_played_games:
+    path:     /played_games
+    defaults: { _controller: AppBundle:Testgame:played_games }
+
+_my_games:
+    path:     /my_games
+    defaults: { _controller: AppBundle:Testgame:my_games }
+
+_update_cmh:
+    path:     /testgame/cmh/{id}
+    defaults: { _controller: AppBundle:Cmh:update }
+
+_testgame:
+    path:     /testgame
+    defaults: { _controller: AppBundle:Testgame }
+
+_rapport:
+    path:    /rapport
+    defaults: { _controller: AppBundle:Testgame }
+
+ajax_update_mydata:
+    pattern:  /update/data/from/ajax/call
+    defaults: { _controller: AppBundle:MyAjax:updateData }
+
+_remove_highlight:
+    path:     /testgame/highlight/remove/{id}
+    defaults: { _controller: AppBundle:Highlight:remove }
+

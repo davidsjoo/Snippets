@@ -1,0 +1,7 @@
+{% for tasks in tasks %}
+    <a href="{{ path('_updatetask', {'id': tasks.id}) }}"> {{ tasks.id }}  - {{ tasks.title }} - {{ tasks.description }} </a><br>
+{% endfor %}
+
+<br />
+
+<a href="{{ path('_index') }}">Tillbaka</a>

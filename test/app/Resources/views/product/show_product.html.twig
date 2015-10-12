@@ -1,0 +1,12 @@
+
+<h3>Produkter från den här veckan</h3>
+{% for products in product %}
+{{ products.name }} - {{ products.dateAdded|date('Y-m-d H:i:s') }} - {{ products.price }} <br />
+{% endfor %}
+
+<h3>Alla cyklar</h3>
+{% for bikes in bike %}
+{{ bikes.name }} <br />
+{% endfor %}
+
+<a href="{{ path('_new_product') }}">Home</a>

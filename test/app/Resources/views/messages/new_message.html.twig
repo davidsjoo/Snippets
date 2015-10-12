@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{{ form_start(form) }}
+{{ form.message.vars.full_name }}
+{{ form_widget(form) }}
+
+
+{{ form_end(form) }}
+
+<h3>Meddelanden</h3>
+
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+
+<table border="1px">
+    <tr>
+        <th>Rubrik</th>
+        <th>Användare</th>
+        <th>Skapad</th>
+        <th>Ändra</th>
+        <th>Ta bort</th>
+    </tr>
+    {% for message in all_message %}
+        <tr>
+            <td><a href="{{ path('_show_message', {'id': message.id}) }}"> {{ message.headline }}</a></td>
+            <td>{{ message.user }}</td>
+            <td>{{ message.dateCreated|date('Y-m-d H:i') }}</td>
+            <td><a href="{{ path('_update_message', {'id': message.id}) }}">o</a></td>
+            <td><a href="{{ path('_delete_message', {'id': message.id}) }}">i</a></td>
+        </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}

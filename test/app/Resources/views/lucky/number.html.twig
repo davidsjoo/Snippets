@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Lucky numbers: {{ luckyNumberList }}</h1>
+
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        {{ flashMessage }}
+
+    {%  endfor %}
+
+{% endblock %}

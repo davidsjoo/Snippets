@@ -1,0 +1,17 @@
+{% form_theme form 'form_table_layout.html.twig' %}
+{# {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %} #}
+
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+{{ form_end(form) }}
+
+
+
+{% if product is defined %}
+Produkten {{ product.name }} skapdes med: <br />
+    id: {{ product.id }} <br />
+    Pris: {{ product.price }}
+{% endif %}
+
+<a href=" {{ path('_index_product')  }}">Home</a>

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+<h2>Meddelanden</h2>
+
+<p><a href="{{ path('_new_message') }}">Skapa nytt meddelande</a></p>
+
+<table class="table" id="message_json">
+    <tr>
+        <th>Rubrik</th>
+        <th>Ändra</th>
+    </tr>
+</table>
+
+{% block javascripts %}
+{{ parent() }}
+            {% javascripts 
+            'bundles/js/js/message.js' 
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+            
+    {% endblock %}
+
+{% endblock %}

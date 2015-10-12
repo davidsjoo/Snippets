@@ -1,0 +1,12 @@
+{% stylesheets 'bundles/blog/css/form.css' filter='cssrewrite' %}
+<link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+<h1 id="test">
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+</h1>
+{% endstylesheets %}
+{% if title is defined %}
+<p id="test2">{{ title }} <br>
+    {{ blog_post }}</p>
+{% endif %}

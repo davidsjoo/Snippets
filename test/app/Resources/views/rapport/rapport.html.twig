@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <table id="rapport">
+        <tr>
+            <td>
+                {{ form_label(form.user) }}
+                {{ form_errors(form.user) }}
+                {{ form_widget(form.user) }}
+            </td>
+            <td>{{ form_label(form.start_date) }}
+                {{ form_errors(form.start_date) }}
+                {{ form_widget(form.start_date) }}
+
+            </td>
+            <td>
+                {{ form_label(form.end_date) }}
+                {{ form_errors(form.end_date) }}
+                {{ form_widget(form.end_date) }}
+
+            </td>
+        </tr>
+        <tr>
+            <td>{{ form_widget(form.save) }}</td>
+        </tr>
+        {{ form_end(form) }}
+    </table>
+
+<div class="panel panel-default" id="div_highlight">
+    <div class="panel-heading">Highlights</div>
+    <table class="table" id="show_highlight">
+        <tr>
+            <th>Match</th>
+            <th>Datum</th>
+        </tr>
+    </table>
+</div>
+
+<div class="panel panel-default" id="div_cmh">
+    <div class="panel-heading">CMH</div>
+    <table class="table" id="show_cmh">
+        <tr>
+            <th>Match</th>
+            <th>Datum</th>
+        </tr>
+    </table>
+</div>
+
+{% endblock %}
+

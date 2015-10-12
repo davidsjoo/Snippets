@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Meddelanden</title>
+</head>
+
+<body>
+<div class="modal-body">
+
+    {{ form_start(update_form) }}
+    {{ form_widget(update_form) }}
+    {{ form_end(update_form) }}
+
+    <div class="alert alert-success" role="alert">Ändringarna sparades!</div>
+
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.alert-success').hide();
+        });
+        var $id = {{ message.id }};
+        var $messages = $('#message_json');
+        $(function() {
+            $("form").submit(function(e) {
+                e.preventDefault();
+
+                var $data = $(this).serialize();
+                $('#message_json').empty();
+                $.ajax({
+                    type: "POST",
+                    url: "message/update_message/"+$id,
+                    data: $data
+                }).done(function( result ) {
+                    if(result.success) {
+                        console.log(result);
+                        $('.alert-success').fadeOut().fadeIn();
+                    }
+
+                });
+                var $1 = "<a data-toggle='modal'";
+                var $1_2 = " data-target='#myModal' href=\"";
+                var $7 = "\">o</a";
+                var $8 = ">";
+                $.ajax({
+                    type: "GET",
+                    url: "message/get/json",
+                    success: function(messages) {
+                        console.log('success', messages);
+                        $.each(messages, function (i, message) {
+                            console.log(message.id);
+                            $messages.append('<tr><td>' + message.headline + '</td><td>' +
+                                    $1+$1_2+'message/update_message/'+message.id+$7+$8+ '</td></tr>')
+                        });
+                    },
+                    error: function() {
+                        console.log('Error loading messages')
+
+                    }
+                })
+            });
+        });
+
+    </script>
+</body>
+</html>
+
+
