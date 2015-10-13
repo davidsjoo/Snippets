@@ -38,21 +38,21 @@
 {% endif %}
 </div>
 
-
 </div>
 
 <script type="text/javascript">
     var $id = {{ highlight.id }}
-    $(document).ready(function() {
-
+    $(document).ready(function() 
+    {
         var $id = {{ highlight.id }}
         $('.alert-success').hide();
         $('.alert-warning').hide();
-        $('.alert-danger').hide();
         console.log($id);
     });
 
-    $(function() {
+    //post highlight to database
+    $(function() 
+    {
         $("form").submit(function (e) {
             e.preventDefault();
             location.reload(false);
@@ -61,7 +61,8 @@
                 type: "POST",
                 url: "testgame/highlight/" + $id,
                 data: $data
-            }).done(function (result) {
+            })
+            .done(function (result) {
                 if (result.success) {
                     console.log(result);
                     $('.alert-success').show();
@@ -69,10 +70,14 @@
                 else {
                     console.log('Something went wrong..')
                 }
-            });
+            })
+            .fail(function(err) {
+                console.log(err);
+            })
         });
     });
-    $(function() {
+    $(function() 
+    {
         $('#remove_highlight_button').click(function() {
             location.reload(false);
             $.ajax({
@@ -86,9 +91,11 @@
             });
         });
     });
+
     //empty modal on close
     $(document).on("hidden.bs.modal", ".modal:not(.local-modal)", function (e) {
-    $(e.target).removeData("bs.modal").find(".modal-content").empty();
+        $(e.target).removeData("bs.modal").find(".modal-content").empty();
+        $('a').removeClass('test_test');
     });    
     
 </script>

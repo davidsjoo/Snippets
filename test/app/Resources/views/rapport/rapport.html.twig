@@ -2,6 +2,16 @@
 
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
+    {% block javascripts %}
+            {% javascripts 
+            'bundles/js/jquery-1.11.3.min.js' 
+            'bundles/js/js/bootstrap.min.js' 
+            'bundles/js/js/js.js'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+    {% endblock %}
+
 {% block body %}
 
     {{ form_start(form) }}

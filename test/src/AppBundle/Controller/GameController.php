@@ -102,7 +102,7 @@ class GameController extends Controller
      */
     public function jsonGames()
     {
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Testgame');
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Testgame');        
         $games = $repository->findGamesJson();
         return new JsonResponse($games);
     }
@@ -118,11 +118,11 @@ class GameController extends Controller
                 'choice_label' => 'name',
             ))
             ->add('start_date', 'date', array(
-                'data' => new \DateTime('first day of this month midnight'),
+                'data' => new \DateTime('first day of last month midnight'),
                 'label' => 'Från:'
             ))
             ->add('end_date', 'date', array(
-                'data' => new \DateTime('last day of this month 9pm'),
+                'data' => new \DateTime('last day of last month 9pm'),
                 'label' => 'Till:'
             ))
             ->add('save', 'submit', array(
@@ -197,13 +197,11 @@ class GameController extends Controller
         return new JsonResponse($cmh);
     }
 
-
-
     /**
      * @Route("/testgame/show")
      */
-    public function showWork() {
-
+    public function showWork() 
+    {
         $id = 1;
 
         $em = $this->getDoctrine()->getManager();
@@ -215,16 +213,14 @@ class GameController extends Controller
             'highlight' => $highlight,
             'cmh' => $cmh,
         ));
-
-
     }
 
     /**
      * @Route("/testgame/{id}")
      *
      */
-    public function updateGame(Request $request, $id) {
-
+    public function updateGame(Request $request, $id) 
+    {
         $em = $this->getDoctrine()->getManager();
         $game = $em->getRepository('AppBundle:Testgame')->find($id);
 
@@ -240,7 +236,6 @@ class GameController extends Controller
 
             return $this->redirectToRoute('testgame');
         }
-
         return $this->render('/testgame/update.html.twig', array(
             'form' => $form->createView()
         ));
@@ -262,7 +257,6 @@ class GameController extends Controller
             $em->flush();
 
             if ($request->isXmlHttpRequest()) {
-                //$response = new Response();
                 $response = array(
                     'success' => true,
                     'id' => $id,
@@ -270,7 +264,7 @@ class GameController extends Controller
                 return new JsonResponse($response);
             }
 
-            return new Response('Success');
+            return $this->redirectToRoute('testgame');
         }
 
         return $this->render('/testgame/update_highlight.html.twig', array(
@@ -304,8 +298,8 @@ class GameController extends Controller
     /**
      * @Route("/testgame/grade/{id}")
      */
-    public function updateGrade(Request $request, $id) {
-
+    public function updateGrade(Request $request, $id) 
+    {
         $em = $this->getDoctrine()->getManager();
         $grade = $em->getRepository('AppBundle:Grade')->find($id);
 
@@ -326,7 +320,6 @@ class GameController extends Controller
 
             return $this->redirectToRoute('testgame');
         }
-
         return $this->render('/testgame/update_grade.html.twig', array(
             'form' => $form->createView(),
             'grade' => $grade,
