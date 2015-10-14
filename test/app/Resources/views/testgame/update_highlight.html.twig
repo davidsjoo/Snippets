@@ -30,8 +30,6 @@
 </th>
 </tr>
 </table>
-<div class="alert alert-success" role="alert">Bokningen sparades!</div>
-<div class="alert alert-warning" role="alert">Bokningen togs bort!</div>
 <div class="modal-footer">
  {% if highlight.user != null %}   
 <button id="remove_highlight_button" class="btn btn-warning">Ta bort bokning</button>
@@ -41,22 +39,20 @@
 </div>
 
 <script type="text/javascript">
-    var $id = {{ highlight.id }}
-    $(document).ready(function() 
-    {
-        var $id = {{ highlight.id }}
-        $('.alert-success').hide();
-        $('.alert-warning').hide();
-        console.log($id);
-    });
-
+    var $id = {{ highlight.id }};
+    var $add_user = '<i class="fa fa-user-plus"></i>';
+    var $before_href = '<a data-toggle="modal" data-target="#gameModal" href="'
+    var $after_href = '">';
+    var $link = 'testgame/highlight/'
     //post highlight to database
     $(function() 
     {
         $("form").submit(function (e) {
             e.preventDefault();
-            location.reload(false);
+            //location.reload(false);
             var $data = $(this).serialize();
+
+            
             $.ajax({
                 type: "POST",
                 url: "testgame/highlight/" + $id,
@@ -64,29 +60,40 @@
             })
             .done(function (result) {
                 if (result.success) {
+                    $("#game-"+result.highlight.id).hide();
+                    $('#gameModal').modal('hide');
                     console.log(result);
-                    $('.alert-success').show();
-                }
-                else {
-                    console.log('Something went wrong..')
+                    document.getElementById('game-'+result.highlight.id).innerHTML = $before_href+$link+result.highlight.id+$after_href+result.highlight.user+'</a>';
+                    $("#game-"+result.highlight.id).fadeIn().addClass("update_success");
+                    setTimeout(function() {
+                        $("#game-"+result.highlight.id).removeClass("update_success");
+                    }, 3000);
                 }
             })
             .fail(function(err) {
                 console.log(err);
+                alert('Status: '+err.status+' '+err.statusText+', Readystate: '+err.readyState);
+                $('#gameModal').modal('hide');
+                location.reload(true);
             })
         });
     });
     $(function() 
     {
         $('#remove_highlight_button').click(function() {
-            location.reload(false);
             $.ajax({
                 type: 'POST',
                 url: 'testgame/highlight/remove/'+$id
-            }).done(function (data) {
-                if (data.success) {
-                    console.log(data);
-                    $('.alert-warning').show();
+            }).done(function (result) {
+                if (result.success) {
+                    $("#game-"+result.highlight.id).hide();
+                    $('#gameModal').modal('hide');
+                    console.log(result);
+                    document.getElementById('game-'+result.highlight.id).innerHTML = $before_href+'testgame/highlight/'+result.highlight.id+$after_href+$add_user+'</a>';
+                    $("#game-"+result.highlight.id).fadeIn().addClass("remove_success");
+                    setTimeout(function() {
+                        $("#game-"+result.highlight.id).removeClass("remove_success");
+                    }, 3000);
                 }
             });
         });

@@ -43,7 +43,7 @@ class GameController extends Controller
             ->getForm();
         $form->handleRequest($request);
 
-        $game->setGamedates(new \DateTime('tomorrow 7pm'));
+        $game->setGamedates(new \DateTime('next friday 7pm'));
 
         $game->setGameName('Team' . rand(0, 100) . ' vs Team' . rand(0, 100));
         if ($form->isValid()) {
@@ -116,6 +116,7 @@ class GameController extends Controller
             ->add('user', 'entity', array(
                 'class' => 'AppBundle:User',
                 'choice_label' => 'name',
+                'label' => 'Användare',
             ))
             ->add('start_date', 'date', array(
                 'data' => new \DateTime('first day of last month midnight'),
@@ -259,7 +260,11 @@ class GameController extends Controller
             if ($request->isXmlHttpRequest()) {
                 $response = array(
                     'success' => true,
-                    'id' => $id,
+                    'highlight' => array(
+                        'id' => $highlight->getId(),
+                        'game' => $highlight->getTestgame()->getId(),
+                        'user' => $highlight->getUser()->getName(),
+                    ),
                 );
                 return new JsonResponse($response);
             }
@@ -280,15 +285,16 @@ class GameController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $highlight = $em->getRepository('AppBundle:Highlight')->find($id);
-        $id = $highlight->getId();
         $highlight->setUser(null);
         $em->persist($highlight);
         $em->flush();
 
         if ($request->isXmlHttpRequest()) {
             $response = array(
-                'id' => $id,
                 'success' => true,
+                'highlight' => array(
+                        'id' => $highlight->getId(),
+                    ),
             );
             return new JsonResponse($response);
         }

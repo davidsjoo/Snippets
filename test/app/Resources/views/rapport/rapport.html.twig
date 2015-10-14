@@ -2,17 +2,11 @@
 
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
-    {% block javascripts %}
-            {% javascripts 
-            'bundles/js/jquery-1.11.3.min.js' 
-            'bundles/js/js/bootstrap.min.js' 
-            'bundles/js/js/js.js'
-            %}
-            <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-    {% endblock %}
-
 {% block body %}
+    {% block javascripts %}
+        {{ parent() }}
+            
+    {% endblock %}
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
@@ -42,7 +36,7 @@
     </table>
 
 <div class="panel panel-default" id="div_highlight">
-    <div class="panel-heading">Highlights</div>
+    <div class="panel-heading" id="rapport_highlights_count">Highlights</div>
     <table class="table" id="show_highlight">
         <tr>
             <th>Match</th>
@@ -52,7 +46,7 @@
 </div>
 
 <div class="panel panel-default" id="div_cmh">
-    <div class="panel-heading">CMH</div>
+    <div class="panel-heading" id="rapport_cmh_count">CMH</div>
     <table class="table" id="show_cmh">
         <tr>
             <th>Match</th>

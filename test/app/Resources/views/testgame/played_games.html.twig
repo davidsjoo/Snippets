@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block stylesheets %}
         {% stylesheets 'bundles/css/font-awesome-4.4.0/css/font-awesome.min.css' filter='cssrewrite' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
@@ -8,8 +10,8 @@
 {% endblock %}
 
 {% block body %}
-    <a href="{{ path('_games') }}">Kommande matcher</a> - <a href="{{ path('_played_games') }}">Spelade matcher</a>
-    - <a href="{{ path('_my_games') }}">Mina matcher</a>
+    <a href="{{ path('_games') }}">Kommande matcher</a> | <a class="played_games" href="{{ path('_played_games') }}">Spelade matcher</a>
+    | <a href="{{ path('_my_games') }}">Mina matcher</a>
 
 <div class="modal" id="gameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -86,5 +88,14 @@
 
 </table>
 </div>
+
+{% block javascripts %}
+            {{ parent() }}
+            {% javascripts 
+                'bundles/js/js/played_games.js'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
 
 {% endblock %}

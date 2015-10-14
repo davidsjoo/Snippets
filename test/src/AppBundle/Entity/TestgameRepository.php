@@ -13,8 +13,8 @@ use Doctrine\ORM\EntityRepository;
 class TestgameRepository extends EntityRepository
 {
 
-    public function findGames() {
-
+    public function findGames() 
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('t')
             ->from('AppBundle:Testgame', 't')
@@ -25,11 +25,13 @@ class TestgameRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findPlayedGames() {
-
+    public function findPlayedGames() 
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('t')
             ->from('AppBundle:Testgame', 't')
+            ->join('t.highlight', 'h')
+            ->join('t.cmh', 'c')
             ->where('t.gamedates < :today')
             ->orderBy('t.gamedates', 'ASC')
             ->setParameter('today', new \DateTime('today'))
@@ -37,7 +39,8 @@ class TestgameRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findMyGames() {
+    public function findMyGames() 
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('t')
             ->from('AppBundle:Testgame', 't')
@@ -50,7 +53,8 @@ class TestgameRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findGamesByUserAndDate($user, $start_date, $end_date) {
+    public function findGamesByUserAndDate($user, $start_date, $end_date) 
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('t')
             ->from('AppBundle:Testgame', 't')
@@ -70,7 +74,8 @@ class TestgameRepository extends EntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
-    public function findHighlightByUserAndDateJson($user, $start_date, $end_date) {
+    public function findHighlightByUserAndDateJson($user, $start_date, $end_date) 
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('t')
             ->from('AppBundle:Testgame', 't')
@@ -91,7 +96,8 @@ class TestgameRepository extends EntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
-    public function findCmhByUserAndDateJson($user, $start_date, $end_date) {
+    public function findCmhByUserAndDateJson($user, $start_date, $end_date) 
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('t')
             ->from('AppBundle:Testgame', 't')
@@ -124,7 +130,8 @@ class TestgameRepository extends EntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
-    public function findHighlightJson($id) {
+    public function findHighlightJson($id) 
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('t')
             ->from('AppBundle:Testgame', 't')
@@ -133,6 +140,4 @@ class TestgameRepository extends EntityRepository
             ->getQuery();
         return $qb->getQuery()->getArrayResult();
     }
-
-
 }

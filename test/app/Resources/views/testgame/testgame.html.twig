@@ -8,10 +8,8 @@
     {% endblock %}
 
 {% block body %}
-
-    <a href="{{ path('_games') }}">Kommande matcher</a> - <a href="{{ path('_played_games') }}">Spelade matcher</a>
-    - <a href="{{ path('_my_games') }}">Mina matcher</a>
-
+    <a class="upcoming_games" href="{{ path('_games') }}">Kommande matcher</a> | <a href="{{ path('_played_games') }}">Spelade matcher</a>
+    | <a href="{{ path('_my_games') }}">Mina matcher</a>
     <div class="modal" id="gameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="1">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -24,14 +22,12 @@
     <div class="panel-heading">Kommande matcher</div>
 <table class="table">
     <tr>
-
         <th>Match</th>
         <th>Highlight</th>
         <th>Betyg</th>
         <th>CMH</th>
         <th>Livered</th>
         <th>FLS</th>
-
     </tr>
     {% set date = null %}
     {% for game in games %}
@@ -49,17 +45,17 @@
         {% endif %}
 
         <tr>
-            <td id="game">{{ game.gamedates|date("H:i") }} - {{ game.gameName }} </td>
+            <td>{{ game.gamedates|date("H:i") }} - {{ game.gameName }} </td>
             
-            <td id="game">
+            <td id="game-{{ game.id }}">
                 {% if game.highlight.user.name is defined %}
-                    <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_highlight', {'id': game.id}) }}">{{ game.highlight.user.name }}</a>
+                    <a data-highlight-id="{{ game.highlight.id }}" data-toggle="modal" data-target="#gameModal" href="{{ path('_update_highlight', {'id': game.id}) }}">{{ game.highlight.user.name }}</a>
                 {% else %}
                     <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_highlight', {'id': game.id}) }}"><i class="fa fa-user-plus"></i></a>
                 {% endif %}
             </td>
 
-            <td id="game">
+            <td>
                 {% if game.grade.grade != null %}
                     <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_grade', {'id': game.id}) }}">{{ game.grade.grade }}</a>
                 {% else %}
@@ -67,20 +63,17 @@
                 {% endif %}
             </td>
 
-            <td id="game">
+            <td>
                 {% if game.cmh.user.name is defined %}
                     <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_cmh', {'id': game.id}) }}">{{ game.cmh.user.name }}</a>
                     {% else %}
                         <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_cmh', {'id': game.id}) }}"><i class="fa fa-user-plus"></i></a>
                 {% endif %}
             </td>
-            <td id="game">
-
+            <td>
             </td>
-            <td id="game">
-
+            <td>
             </td>
-
         </tr>
 
 {% endfor %}
@@ -92,6 +85,14 @@
 {{ form_widget(form) }}
 {{ form_end(form) }}
 
+{% block javascripts %}
+            {{ parent() }}
+            {% javascripts 
+                'bundles/js/js/testgame.js'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
 
 {% endblock %}
 
