@@ -98,6 +98,17 @@ class GameController extends Controller
     }
 
     /**
+     * @Route("/trade_games", name="trade_games")
+     * @Template("testgame/trade_games.html.twig")
+     */
+    public function showTradeGames()
+    {
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Testgame');
+        $games = $repository->findTradeGames();
+        return array('games' => $games);
+    }
+
+    /**
      * @Route("/testgame/json", name="json")
      */
     public function jsonGames()
@@ -252,8 +263,11 @@ class GameController extends Controller
         $form = $this->createForm(new HighlightType(), $highlight);
         $form->handleRequest($request);
         $id = $highlight->getId();
-
         if ($form->isValid()) {
+            $trade = $highlight->getTrade();
+            if ($trade == false) {
+                $highlight->setTradeMessage(null);
+            }
             $em->persist($highlight);
             $em->flush();
 
@@ -264,6 +278,7 @@ class GameController extends Controller
                         'id' => $highlight->getId(),
                         'game' => $highlight->getTestgame()->getId(),
                         'user' => $highlight->getUser()->getName(),
+                        'trade' => $trade,
                     ),
                 );
                 return new JsonResponse($response);
@@ -286,6 +301,8 @@ class GameController extends Controller
         $em = $this->getDoctrine()->getManager();
         $highlight = $em->getRepository('AppBundle:Highlight')->find($id);
         $highlight->setUser(null);
+        $highlight->setTrade(null);
+        $highlight->setTradeMessage(null);
         $em->persist($highlight);
         $em->flush();
 

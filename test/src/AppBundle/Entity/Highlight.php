@@ -92,4 +92,62 @@ class Highlight
     {
         return $this->user;
     }
+
+    /**
+    * @var boolean
+    * @ORM\Column(name="trade", type="boolean", nullable=true)
+    */
+    private $trade;
+
+    /**
+    * @var string
+    * @ORM\Column(name="trade_message", type="string", length=255, nullable=true)
+    */
+    private $trade_message;
+
+    /**
+     * Set trade
+     *
+     * @param boolean $trade
+     * @return Highlight
+     */
+    public function setTrade($trade)
+    {
+        $this->trade = $trade;
+
+        return $this;
+    }
+
+    /**
+     * Get trade
+     *
+     * @return boolean 
+     */
+    public function getTrade()
+    {
+        return $this->trade;
+    }
+
+    /**
+     * Set trade_message
+     *
+     * @param string $tradeMessage
+     * @return Highlight
+     */
+    public function setTradeMessage($tradeMessage)
+    {
+        $this->trade_message = $tradeMessage;
+
+        return $this;
+    }
+
+    /**
+     * Get trade_message
+     *
+     * @return string 
+     */
+    public function getTradeMessage()
+    {
+        return $this->trade_message;
+    }
 }

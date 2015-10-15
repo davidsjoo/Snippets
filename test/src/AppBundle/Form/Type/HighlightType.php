@@ -29,6 +29,14 @@ class HighlightType extends AbstractType
                     ->setParameter('true', true);
                 }
                     ))
+            ->add('trade', 'checkbox', array(
+                'label' => 'Vill du byta detta pass?',
+                'required' => false,
+                ))
+            ->add('trade_message', 'textarea', array(
+                'required' => false,
+                'label' => 'Meddelande'
+                ))
             ->add('save', 'submit', array(
                 'label' => 'Spara'));
     }

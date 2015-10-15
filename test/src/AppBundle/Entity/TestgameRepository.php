@@ -12,12 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class TestgameRepository extends EntityRepository
 {
-
     public function findGames() 
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('t')
+        $qb->select('t','c', 'h', 'g')
             ->from('AppBundle:Testgame', 't')
+            ->join('t.highlight', 'h')
+            ->join('t.cmh', 'c')
+            ->join('t.grade', 'g')
             ->where('t.gamedates > :today')
             ->orderBy('t.gamedates', 'ASC')
             ->setParameter('today', new \DateTime('today'))
@@ -28,10 +30,11 @@ class TestgameRepository extends EntityRepository
     public function findPlayedGames() 
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('t')
+        $qb->select('t', 'h', 'c', 'g')
             ->from('AppBundle:Testgame', 't')
             ->join('t.highlight', 'h')
             ->join('t.cmh', 'c')
+            ->join('t.grade', 'g')
             ->where('t.gamedates < :today')
             ->orderBy('t.gamedates', 'ASC')
             ->setParameter('today', new \DateTime('today'))
@@ -42,14 +45,29 @@ class TestgameRepository extends EntityRepository
     public function findMyGames() 
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('t')
+        $qb->select('t', 'h', 'c', 'g')
             ->from('AppBundle:Testgame', 't')
             ->join('t.highlight', 'h')
             ->join('t.cmh', 'c')
+            ->join('t.grade', 'g')
             ->where('h.user = :user')
             ->orWhere('c.user = :user')
             ->orderBy('t.gamedates', 'ASC')
             ->setParameter('user', 1);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findTradeGames()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('t', 'h', 'c', 'u')
+            ->from('AppBundle:Testgame', 't')
+            ->join('t.highlight', 'h')
+            ->join('t.cmh', 'c')
+            ->join('h.user', 'u')
+            ->where('h.trade = :true')
+            ->orderBy('t.gamedates', 'ASC')
+            ->setParameter('true', true);
         return $qb->getQuery()->getResult();
     }
 
