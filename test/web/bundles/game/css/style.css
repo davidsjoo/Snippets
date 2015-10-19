@@ -1,0 +1,175 @@
+#test {
+    border: solid 1px;
+    border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.panel-default {
+    width: 50%;
+}
+
+.table {
+    font-size: 12px;
+}
+
+#game {
+    border: 1;
+}
+
+
+.panel-primary {
+    width: 50%;
+    border-color: #ddd;
+}
+
+
+.panel-default>.panel-heading {
+    color: #FFFFFF;
+    border-color: gray;
+    background-image: linear-gradient(to bottom, gray 0, black 100%);
+}
+
+td.active {
+    background: black;
+    color: white;
+}
+
+.form-control {
+    width: auto;
+}
+
+#rapport {
+    width: 60%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+#show_highlight {
+    table-layout: fixed;
+}
+#show_cmh {
+    table-layout: fixed;
+}
+
+.modal-header {
+    background-image: linear-gradient(to bottom, gray 0, black 100%);
+    color: #fff;
+}
+
+.game_modal {
+    padding: 5px;
+}
+
+#game_th {
+    padding: 3;
+}
+
+#remove_highlight_button {
+    padding: 1px 1px;
+    border-radius: 2px;
+    font-weight: 350;
+    font-size: 11px;
+}
+
+.btn-default {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    border-radius: 2px;
+}
+
+.btn-default:hover {
+    color: #fff;
+    background-color: #52A552;
+    border-color: #4cae4c;
+}
+
+#hej {
+    font-size: 14px;
+}
+a {
+    color: #009BE0;
+    font-weight: bold;
+}
+
+#remove_cmh_button {
+    padding: 1px 1px;
+    border-radius: 2px;
+    font-weight: 350;
+    font-size: 11px;
+}
+#remove_grade_button {
+    padding: 1px 1px;
+    border-radius: 2px;
+    font-weight: 350;
+    font-size: 11px;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 7px;
+}
+
+.highlight_active {
+    color: black;
+}
+.remove_success>a {
+    background-color: #d9534f;
+    border-color: #D43F3A 1px;
+    border-radius: 4px;
+    color: #fff;
+}
+.update_success>a {
+    background-color: #dff0d8;
+    border-color: #d6e9c6 1px;
+    border-radius: 4px;
+    color: #3c763d;
+}
+.update_failed>a {
+    color: red;
+}
+
+.rapport_submit {
+    margin-top: 5px;
+    color: #fff;
+    border-color: gray;
+    background-image: linear-gradient(to bottom, gray 0, black 100%);
+}
+
+.upcoming_games_active {
+    color: #000000;
+}
+
+.modal_highlight {
+    padding: 10px;
+}
+
+#modal_save {
+    margin-top: 5px;
+}
+
+.fa-flag {
+    color: rgb(232, 23, 23);
+}
+
+textarea.form-control {
+    width: 100%;
+    height: 100px;
+}
+
+.trade_no_message {
+    font-style: italic;
+}
+
+#trade_well {
+    background-color: #fff;
+    border: 0px;
+}
+
+#trade_button {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    border-radius: 2px;
+}
+
+
