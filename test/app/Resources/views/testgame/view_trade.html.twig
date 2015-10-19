@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Highlight</title>
+</head>
+
+<body>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title">
+            {{highlight.testgame.gameName}} -
+            {{highlight.testgame.gamedates|date("j")}}/{{highlight.testgame.gamedates|date("m")}} -
+            Highlights
+        </h5>
+      </div>
+      <h4>{{highlight.user.name}}</h4>
+      <div class="well well-sm" id="trade_well">
+        {% if highlight.tradeMessage != null %}
+            {{ highlight.tradeMessage }}
+        {% else %}
+            <p class="trade_no_message">Inget meddelande..</p>
+        {% endif %}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="trade_button" data-dismiss="modal">Stäng</button>
+    </div>
+
+</body>
+</html>
