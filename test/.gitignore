@@ -8,4 +8,7 @@
 /bin/
 /composer.phar
 /vendor/
-/web/bundles/
+/web/bundles/css
+/web/bundles/js/js/bootstrap.js
+/web/bundles/js/js/bootstrap.min.js
+/web/bundles/js/jquery-1.11.3.min.js
