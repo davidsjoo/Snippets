@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
     {% block stylesheets %}
-        {% stylesheets 'bundles/css/css/font-awesome.min.css' filter='cssrewrite' %}
+        {% stylesheets 'bundles/css/font-awesome-4.4.0/css/font-awesome.min.css' filter='cssrewrite' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
         {% endstylesheets %}
         {{ parent() }}
@@ -9,7 +9,7 @@
 
 {% block body %}
 
-    <div class="modal" id="gameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="1">
+    <div class="modal" id="highlightModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="1">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
 
@@ -23,7 +23,6 @@
     <tr>
         <th>Match</th>
         <th>Highlight</th>
-        <th>CMH</th>
 
     </tr>
     {% set date = null %}
@@ -32,7 +31,6 @@
             {% set date = game.gamedates|date('Y-m-d') %}
     <tr>
         <th id="hej">{{ game.gamedates|date('Y-m-d') }} - {{ game.gamedates|date('l')}} </th>
-        <th></th>
         <th></th>
         <th></th>
 
@@ -44,22 +42,15 @@
             <td>{{ game.gamedates|date("H:i") }} - {{ game.gameName }} </td>
             
             <td id="game-{{ game.id }}">
-                {% if game.highlight.user.name is defined %}
-                    <a data-highlight-id="{{ game.highlight.id }}" data-toggle="modal" data-target="#gameModal" href="{{ path('_update_highlight', {'id': game.id}) }}">{{ game.highlight.user.name }}
-                        {% if game.highlight.trade != false %}<i class="fa fa-flag"></i></a>
+                {% if game.highlight.user.name is defined  %}
+                    <a data-highlight-id="{{ game.highlight.id }}" data-toggle="modal" data-target="#highlightModal" href="{{ path('_update_trade', {'id': game.id}) }}">{{ game.highlight.user.name }}
+                        {% if game.highlight.trade != false %}<i class="fa fa-flag" id="red_flag"></i></a>
                         {% endif %}
                 {% else %}
-                    <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_highlight', {'id': game.id}) }}"><i class="fa fa-user-plus"></i></a>
+                    <a data-toggle="modal" data-target="#highlightModal" href="{{ path('_update_trade', {'id': game.id}) }}"><i class="fa fa-user-plus"></i></a>
                 {% endif %}
             </td>
 
-            <td>
-                {% if game.cmh.user.name is defined %}
-                    <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_cmh', {'id': game.id}) }}">{{ game.cmh.user.name }}</a>
-                    {% else %}
-                        <a data-toggle="modal" data-target="#gameModal" href="{{ path('_update_cmh', {'id': game.id}) }}"><i class="fa fa-user-plus"></i></a>
-                {% endif %}
-            </td>
             <td>
             </td>
             <td>
@@ -70,5 +61,14 @@
 
 </table>
 </div>
+
+{% block javascripts %}
+            {{ parent() }}
+            {% javascripts 
+                'bundles/js/js/update_trade.js'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
 
 {% endblock %}

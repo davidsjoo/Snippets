@@ -106,6 +106,12 @@ class Highlight
     private $trade_message;
 
     /**
+    * @var boolean
+    * @ORM\Column(name="accepted_trade", type="boolean", nullable=true)
+    */
+    private $accepted_trade;
+
+    /**
      * Set trade
      *
      * @param boolean $trade
@@ -149,5 +155,28 @@ class Highlight
     public function getTradeMessage()
     {
         return $this->trade_message;
+    }
+
+    /**
+     * Set accepted_trade
+     *
+     * @param boolean $acceptedTrade
+     * @return Highlight
+     */
+    public function setAcceptedTrade($acceptedTrade)
+    {
+        $this->accepted_trade = $acceptedTrade;
+
+        return $this;
+    }
+
+    /**
+     * Get accepted_trade
+     *
+     * @return boolean 
+     */
+    public function getAcceptedTrade()
+    {
+        return $this->accepted_trade;
     }
 }

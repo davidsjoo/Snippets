@@ -22,7 +22,7 @@ class TestgameRepository extends EntityRepository
             ->join('t.grade', 'g')
             ->where('t.gamedates > :today')
             ->orderBy('t.gamedates', 'ASC')
-            ->setParameter('today', new \DateTime('today'))
+            ->setParameter('today', new \DateTime('2014-12-24'))
             ->getQuery();
         return $qb->getQuery()->getResult();
     }
@@ -66,8 +66,12 @@ class TestgameRepository extends EntityRepository
             ->join('t.cmh', 'c')
             ->join('h.user', 'u')
             ->where('h.trade = :true')
+            ->andWhere('h.accepted_trade = :false') 
             ->orderBy('t.gamedates', 'ASC')
-            ->setParameter('true', true);
+            ->setParameters(array(
+                'true' => true,
+                'false' => false,
+                ));
         return $qb->getQuery()->getResult();
     }
 

@@ -44,8 +44,8 @@
 
 {{ form_end(form) }}
 </div>
+{% if highlight.user != null %} 
 <div class="modal-footer">
- {% if highlight.user != null %}   
 <button id="remove_highlight_button" class="btn btn-danger">Ta bort bokning</button>
 {% endif %}
 </div>

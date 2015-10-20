@@ -100,3 +100,7 @@ _remove_highlight:
     path:     /testgame/highlight/remove/{id}
     defaults: { _controller: AppBundle:Highlight:remove }
 
+_update_trade:
+    path:     /testgame/trade/highlight/{id}
+    defaults: { _controller: AppBundle:Highlight:trade }
+

@@ -7,12 +7,12 @@ function highlight(id)
 {
     var $id = id;
     var $add_user = '<i class="fa fa-user-plus"></i>';
-    var $flag = '<i class="fa fa-flag"></i>';
+    var $flag = '<i class="fa fa-flag" id="red_flag"></i>';
     var $before_href = '<a data-toggle="modal" data-target="#gameModal" href="';
     var $after_href = '">';
     var $link = 'testgame/highlight/';
 
-    //set highlight to game and post du database
+    //set highlight to game and post to database
     $(function() 
     {
         $('#highlight_user').change(function() {

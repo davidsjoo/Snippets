@@ -5,7 +5,6 @@
  * Date: 15-09-15
  * Time: 11:12
  */
-
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Cmh;
@@ -15,6 +14,7 @@ use AppBundle\Entity\Highlight;
 use AppBundle\Entity\Testgame;
 use AppBundle\Form\Type\GradeType;
 use AppBundle\Form\Type\HighlightType;
+use AppBundle\Form\Type\TradeType;
 use AppBundle\Form\Type\CmhType;
 use AppBundle\Form\Type\TestGameType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -53,6 +53,8 @@ class GameController extends Controller
 
             $highlight = new Highlight();
             $highlight->setTestgame($game);
+            $highlight->setTrade(false);
+            $highlight->setAcceptedTrade(false);
 
             $cmh = new Cmh();
             $cmh->setTestgame($game);
@@ -88,7 +90,7 @@ class GameController extends Controller
 
     /**
      * @Route("/my_games", name="my_games")
-     * @Template("testgame/played_games.html.twig")
+     * @Template("testgame/my_games.html.twig")
      */
     public function showMyGames()
     {
@@ -268,6 +270,7 @@ class GameController extends Controller
             if ($trade == false) {
                 $highlight->setTradeMessage(null);
             }
+            $highlight->setAcceptedTrade(false);
             $em->persist($highlight);
             $em->flush();
 
@@ -294,6 +297,41 @@ class GameController extends Controller
     }
 
     /**
+     * @Route("/testgame/trade/highlight/{id}")
+     */
+    public function updateHighlightTrade(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $highlight = $em->getRepository('AppBundle:Highlight')->find($id);
+        $form = $this->createForm(new TradeType(), $highlight);
+        $form->handleRequest($request);
+        $id = $highlight->getId();
+        if ($form->isValid()) {
+            $trade = $highlight->getTrade();
+            
+            $em->persist($highlight);
+            $em->flush();
+
+            if ($request->isXmlHttpRequest()) {
+                $response = array(
+                    'success' => true,
+                    'highlight' => array(
+                        'id' => $highlight->getId(),
+                    ),
+                );
+                return new JsonResponse($response);
+            }
+
+            return $this->redirectToRoute('testgame');
+        }
+
+        return $this->render('/testgame/update_trade.html.twig', array(
+            'form' => $form->createView(),
+            'highlight' => $highlight,
+        ));
+    }
+
+    /**
      * @Route("/testgame/highlight/remove/{id}", name="highligt_remove")
      */
     public function removeHighlightAction(Request $request, $id)
@@ -310,7 +348,7 @@ class GameController extends Controller
             $response = array(
                 'success' => true,
                 'highlight' => array(
-                        'id' => $highlight->getId(),
+                    'id' => $highlight->getId(),
                     ),
             );
             return new JsonResponse($response);

@@ -78,6 +78,13 @@ td.active {
     border-radius: 2px;
 }
 
+.btn-default:active {
+    color: #5cb85c;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    border-radius: 2px;
+}
+
 .btn-default:hover {
     color: #fff;
     background-color: #52A552;
@@ -147,8 +154,12 @@ a {
     margin-top: 5px;
 }
 
-.fa-flag {
+#red_flag {
     color: rgb(232, 23, 23);
+}
+
+#green_flag {
+    color: #00B900;
 }
 
 textarea.form-control {
@@ -166,6 +177,17 @@ textarea.form-control {
 }
 
 #trade_button {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    border-radius: 2px;
+}
+
+.not_user {
+    opacity: 0.5;
+}
+
+#modal_close {
     color: #fff;
     background-color: #337ab7;
     border-color: #2e6da4;

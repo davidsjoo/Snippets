@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Trade</title>
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+</head>
+
+<body>
+
+     <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title">
+            {{highlight.testgame.gameName}} =
+            {{highlight.testgame.gamedates|date("j")}}/{{highlight.testgame.gamedates|date("m")}} -
+            Highlights
+        </h5>
+      </div>
+<div class="modal_highlight">
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+</div>
+
+<div class="alert alert-success" id="trade_success" role="alert">Bokningen sparades! Det har skickats ett mail till en admin som måste godkänns blablabawldasl sd as</div>
+
+<div class="modal-footer" id="modal_close_button">
+        <button type="button" class="btn btn-default" id="modal_close" data-dismiss="modal">Stäng</button>
+      </div>
+
+<script type="text/javascript">
+    trade({{highlight.id}});    
+</script>
+
+</body>
+</html>
