@@ -16,9 +16,11 @@
             </div>
         </div>
     </div>
-
-<div class="panel panel-default" id="games_comming_games">
-    <div class="panel-heading">Kommande matcher</div>
+{% if games|length == 0 %}
+    Här finns det inte mycket..
+{% else %}
+<div class="panel panel-default" id="game_trade">
+    <div class="panel-heading">Matchbyten</div>
 <table class="table">
     <tr>
         <th>Match</th>
@@ -27,6 +29,7 @@
     </tr>
     {% set date = null %}
     {% for game in games %}
+        {{game.highlight.tradeMessage}}
         {% if date != game.gamedates|date('Y-m-d') %}
             {% set date = game.gamedates|date('Y-m-d') %}
     <tr>
@@ -61,7 +64,7 @@
 
 </table>
 </div>
-
+{% endif %}
 {% block javascripts %}
             {{ parent() }}
             {% javascripts 

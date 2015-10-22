@@ -18,10 +18,25 @@
       </div>
 <div class="modal_highlight">
 {{ form_start(form) }}
-{{ form_widget(form) }}
+    {{ form_errors(form) }}
+
+    <div class="modal_form" id="modal_form">
+        {{ form_label(form.accepted_trade) }}
+        {{ form_errors(form.accepted_trade) }}
+        {{ form_widget(form.accepted_trade) }}
+    </div>
+
+    <div class="modal_form" id="modal_save">
+        {{ form_widget(form.save) }}
+    </div>
+
 {{ form_end(form) }}
+<div id="spin">
+<i class="fa fa-spinner fa-spin fa-2x"></i> Vänta..
+</div>
 </div>
 
+<div class="alert alert-danger" id="trade_fail" role="alert">Något gick fel :(</div>
 <div class="alert alert-success" id="trade_success" role="alert">Bokningen sparades! Det har skickats ett mail till en admin som måste godkänns blablabawldasl sd as</div>
 
 <div class="modal-footer" id="modal_close_button">

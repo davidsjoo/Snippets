@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: davidsjoo
- * Date: 15-09-15
- * Time: 11:12
- */
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Cmh;
@@ -146,34 +141,15 @@ class GameController extends Controller
                 )
             ))
             ->getForm();
-        $form->handleRequest($request);
-        $user = $form['user']->getData();
-        $start_date = $form['start_date']->getData();
-        $end_date = $form['end_date']->getData();
-        $em = $this->getDoctrine()->getManager();
-        $highlight_repository = $em->getRepository('AppBundle:Highlight');
-        //$highlight = $highlight_repository->findHighlight($user);
-        $highlight = $highlight_repository->findHighlightWithDate($user, $start_date, $end_date);
-        $cmh_repository = $em->getRepository('AppBundle:Cmh');
-        $cmh = $cmh_repository->findCmhWithDate($user, $start_date, $end_date);
 
-        $testgame_repository = $em->getRepository('AppBundle:Testgame');
-        $games = $testgame_repository->findGamesByUserAndDate($user, $start_date, $end_date);
-
-        if ($form->isValid()) {
-            $response = array(
-                'user' => $user,
-                'start_date' => $start_date,
-            );
-        }
         return $this->render('/rapport/rapport.html.twig', array(
             //'highlight' => $highlight,
             'form' => $form->createView(),
-            'highlight' => $highlight,
-            'start_date' => $start_date,
-            'end_date' => $end_date,
-            'cmh' => $cmh,
-            'games' => $games,
+            //'highlight' => $highlight,
+            //'start_date' => $start_date,
+            //'end_date' => $end_date,
+            //'cmh' => $cmh,
+            //'games' => $games,
         ));
     }
 
@@ -306,11 +282,27 @@ class GameController extends Controller
         $form = $this->createForm(new TradeType(), $highlight);
         $form->handleRequest($request);
         $id = $highlight->getId();
+        $game = $highlight->getTestgame();
+        $link = 'http://localhost:8000/app_dev.php/testgame/trade/highlight/';
+        $link2 = $id;
+        $link3 = $link.$link2;
         if ($form->isValid()) {
             $trade = $highlight->getTrade();
             
             $em->persist($highlight);
             $em->flush();
+
+            $mailer = $this->get('mailer');
+            $message = \Swift_Message::newInstance()
+                ->setSubject('VIKTIGT!!!')
+                ->setFrom('sesmailtest@gmail.com')
+                ->setTo('sesmailtest@gmail.com')
+                ->setBody($this->renderView('/testgame/email.txt.twig', array(
+                    'user' => $highlight->getUser(),
+                    'highlight' => $highlight,
+                    'game' => $game,
+                    'link' => $link3)));
+            $mailer->send($message);
 
             if ($request->isXmlHttpRequest()) {
                 $response = array(

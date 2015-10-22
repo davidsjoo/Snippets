@@ -1,6 +1,7 @@
- $(function() {
+$(function() {
     $('#div_highlight').hide();
     $('#div_cmh').hide();
+    $('#spin').hide();
 })
 
 $(function() {
@@ -16,10 +17,9 @@ $(function() {
     var $cmhs = $('#show_cmh');
     
 $('.rapport_submit').on('click', function(event) {
+    $('#spin').show();
         event.preventDefault();
-
         $("#show_cmh").empty().show();
-
         $.ajax({
             type: 'GET',
             url: '/rapport/highlight',
@@ -59,6 +59,7 @@ $('.rapport_submit').on('click', function(event) {
                 end_date: $end_date_year.val() + '-' + $end_date_month.val() + '-' + $end_date_day.val() + ' ' + '23:00:00',
             },
             success: function (cmhs) {
+                $("#spin").hide();
                 if (cmhs.length == 0) {
                     $('#div_cmh').hide();
                 }

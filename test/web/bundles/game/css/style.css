@@ -139,7 +139,7 @@ a {
     margin-top: 5px;
     color: #fff;
     border-color: gray;
-    background-image: linear-gradient(to bottom, gray 0, black 100%);
+    background-image: linear-gradient(to bottom, blue 0, green 100%);
 }
 
 .upcoming_games_active {

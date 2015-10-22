@@ -11,13 +11,31 @@ function highlight(id)
     var $before_href = '<a data-toggle="modal" data-target="#gameModal" href="';
     var $after_href = '">';
     var $link = 'testgame/highlight/';
+    //initial user
+    var $user = document.getElementById('highlight_user').value;
+    //initial value from checkbox
+    var $checkedValue1 = $('#highlight_trade:checked').val();
 
     //set highlight to game and post to database
     $(function() 
     {
-        $('#highlight_user').change(function() {
-            document.getElementById('highlight_trade').checked = false;
-            document.getElementById('highlight_trade_message').value = null;
+        $('#modal_save').hide();
+        $('#highlight_user, #highlight_trade').change(function() {
+            var $current_user = document.getElementById('highlight_user').value;
+            var $current_checkedValue = $('#highlight_trade:checked').val();
+            if ($user == $current_user && $current_checkedValue == $checkedValue1) {
+                console.log("Such user, many checkbox, wow..");
+                $('#modal_save').hide();
+            }
+            else {
+                $('#modal_save').show();
+            }
+
+            if ($user != $current_user) {
+                document.getElementById('highlight_trade').checked = false;
+                document.getElementById('highlight_trade_message').value = null;   
+            }
+            
         })
         $("form").submit(function (e) {
             e.preventDefault();
@@ -32,10 +50,14 @@ function highlight(id)
                     $('#gameModal').modal('hide');
                     console.log(result);
                     if (result.highlight.trade === false) {
-                        document.getElementById('game-'+result.highlight.id).innerHTML = $before_href+$link+result.highlight.id+$after_href+result.highlight.user+'</a>';
+                        document.getElementById(
+                            'game-'+result.highlight.id).innerHTML = 
+                        $before_href+$link+result.highlight.id+$after_href+result.highlight.user+'</a>';
                     }
                     else {
-                        document.getElementById('game-'+result.highlight.id).innerHTML = $before_href+$link+result.highlight.id+$after_href+result.highlight.user+' '+$flag+'</a>';   
+                        document.getElementById(
+                            'game-'+result.highlight.id).innerHTML = 
+                        $before_href+$link+result.highlight.id+$after_href+result.highlight.user+' '+$flag+'</a>';   
                     }
                     $("#game-"+result.highlight.id).addClass("update_success");
                     setTimeout(function() {
@@ -43,8 +65,8 @@ function highlight(id)
                     }, 3000);
                 }
                 else {
-                    alert('Något gick fel.. :(');
-                    location.reload(true);
+                    console.log('Något gick fel.. :(');
+                    //location.reload(true);
                 }
             })
             .fail(function(err) {
@@ -68,7 +90,9 @@ function highlight(id)
                     $("#game-"+result.highlight.id).hide();
                     $('#gameModal').modal('hide');
                     console.log(result);
-                    document.getElementById('game-'+result.highlight.id).innerHTML = $before_href+'testgame/highlight/'+result.highlight.id+$after_href+$add_user+'</a>';
+                    document.getElementById(
+                        'game-'+result.highlight.id).innerHTML = 
+                    $before_href+'testgame/highlight/'+result.highlight.id+$after_href+$add_user+'</a>';
                     $("#game-"+result.highlight.id).fadeIn().addClass("update_success");
                     setTimeout(function() {
                         $("#game-"+result.highlight.id).removeClass("update_success");
