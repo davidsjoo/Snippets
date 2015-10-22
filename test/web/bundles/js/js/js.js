@@ -5,14 +5,13 @@ $(function() {
 })
 
 $(function() {
-
-    var $user = $('#form_user');
-    var $start_date_month = $('#form_start_date_month');
-    var $start_date_day = $('#form_start_date_day');
-    var $start_date_year = $('#form_start_date_year');
-    var $end_date_month = $('#form_end_date_month');
-    var $end_date_day = $('#form_end_date_day');
-    var $end_date_year = $('#form_end_date_year');
+    var $user = $('#report_user');
+    var $start_date_month = $('#report_start_date_month');
+    var $start_date_day = $('#report_start_date_day');
+    var $start_date_year = $('#report_start_date_year');
+    var $end_date_month = $('#report_end_date_month');
+    var $end_date_day = $('#report_end_date_day');
+    var $end_date_year = $('#report_end_date_year');
     var $highlights = $('#show_highlight');
     var $cmhs = $('#show_cmh');
     
@@ -43,13 +42,11 @@ $('.rapport_submit').on('click', function(event) {
                         $highlights.append('<tr><td>' + highlight.game_name + '</td><td>' + highlight.gamedates.date.toString().substr(0, 16) + '</td></tr>');
                     });
                 }
-
             },
             error: function () {
                 console.log('error');
             }
         });
-
         $.ajax({
             type: 'GET',
             url: '/rapport/cmh',
@@ -73,7 +70,6 @@ $('.rapport_submit').on('click', function(event) {
                         $cmhs.append('<tr><td>' + cmh.game_name + '</td><td>' + cmh.gamedates.date.toString().substr(0, 16) + '</td></tr>');
                     });
                 }
-
             },
             error: function () {
                 console.log('error');

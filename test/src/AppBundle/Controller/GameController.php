@@ -10,6 +10,7 @@ use AppBundle\Entity\Testgame;
 use AppBundle\Form\Type\GradeType;
 use AppBundle\Form\Type\HighlightType;
 use AppBundle\Form\Type\TradeType;
+use AppBundle\Form\Type\ReportType;
 use AppBundle\Form\Type\CmhType;
 use AppBundle\Form\Type\TestGameType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -118,38 +119,11 @@ class GameController extends Controller
     /**
      * @Route("/rapport", name="rapport")
      */
-    public function hej(Request $request) {
-
-        $form = $this->createFormBuilder()
-            ->add('user', 'entity', array(
-                'class' => 'AppBundle:User',
-                'choice_label' => 'name',
-                'label' => 'Användare',
-            ))
-            ->add('start_date', 'date', array(
-                'data' => new \DateTime('first day of last month midnight'),
-                'label' => 'Från:'
-            ))
-            ->add('end_date', 'date', array(
-                'data' => new \DateTime('last day of last month 9pm'),
-                'label' => 'Till:'
-            ))
-            ->add('save', 'submit', array(
-                'label' => 'Sök',
-                'attr' => array(
-                    'class' => 'rapport_submit'
-                )
-            ))
-            ->getForm();
-
+    public function reportAction(Request $request) 
+    {
+        $form = $this->createForm(new ReportType());
         return $this->render('/rapport/rapport.html.twig', array(
-            //'highlight' => $highlight,
-            'form' => $form->createView(),
-            //'highlight' => $highlight,
-            //'start_date' => $start_date,
-            //'end_date' => $end_date,
-            //'cmh' => $cmh,
-            //'games' => $games,
+            'form' => $form->createView()
         ));
     }
 

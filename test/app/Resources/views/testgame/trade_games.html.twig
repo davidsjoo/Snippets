@@ -29,7 +29,6 @@
     </tr>
     {% set date = null %}
     {% for game in games %}
-        {{game.highlight.tradeMessage}}
         {% if date != game.gamedates|date('Y-m-d') %}
             {% set date = game.gamedates|date('Y-m-d') %}
     <tr>

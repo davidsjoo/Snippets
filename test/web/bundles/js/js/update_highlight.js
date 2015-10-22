@@ -24,7 +24,7 @@ function highlight(id)
             var $current_user = document.getElementById('highlight_user').value;
             var $current_checkedValue = $('#highlight_trade:checked').val();
             if ($user == $current_user && $current_checkedValue == $checkedValue1) {
-                console.log("Such user, many checkbox, wow..");
+                console.log("Such checkbox, wow..");
                 $('#modal_save').hide();
             }
             else {
